@@ -22,7 +22,7 @@ public class Book {
     @Getter
     protected UUID id;
 
-    @Column(name = "name")
+    @Column(name = "name", length = 512)
     @Getter
     @Setter
     private String name;
@@ -30,14 +30,15 @@ public class Book {
     @Column(name = "description")
     @Getter
     @Setter
+    @Lob
     private String description;
 
-    @Column(name = "author")
+    @Column(name = "author", length = 512)
     @Getter
     @Setter
     private String author;
 
-    @Column(name = "genre")
+    @Column(name = "genre", length = 512)
     @Getter
     @Setter
     private String genre;

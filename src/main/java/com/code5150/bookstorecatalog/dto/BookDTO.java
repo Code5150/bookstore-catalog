@@ -3,18 +3,22 @@ package com.code5150.bookstorecatalog.dto;
 import com.code5150.bookstorecatalog.entity.Book;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class BookDTO {
     private UUID id;
     private String name;
     private String description;
     private String author;
     private String genre;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate editionYear;
     private Double price;
 
