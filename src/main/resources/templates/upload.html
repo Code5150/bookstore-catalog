@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Загрузить список</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-lg">
+    <h1>Загрузка CSV</h1>
+    <form th:method="POST" th:action="@{/uploadCsvFile}" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="formFile" class="form-label">Выбрать файл...</label>
+            <input th:class="'form-control ' + ${loadFailed ? 'is-invalid' : ''}" type="file" id="formFile"
+                   th:name="file" aria-describedby="formFileFeedback" accept=".csv" required>
+            <div th:if="${loadFailed}" id="formFileFeedback" class="invalid-feedback">
+                 <p th:text="${errorCause}"></p>
+            </div>
+
+        </div>
+
+        <!--<input type="text" id="id" th:name="id" th:field="*{id}" hidden/>
+        <div class="mb-3">
+            <label for="bookName" class="form-label">Название</label>
+            <input type="text" class="form-control" id="bookName" th:field="*{name}">
+        </div>
+        <div class="mb-3">
+            <label for="bookDescription" class="form-label">Пример текстового поля</label>
+            <textarea class="form-control" id="bookDescription" rows="3" th:field="*{description}"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="bookAuthor" class="form-label">Название</label>
+            <input type="text" class="form-control" id="bookAuthor" th:field="*{author}">
+        </div>
+        <div class="mb-3">
+            <label for="bookGenre" class="form-label">Название</label>
+            <input type="text" class="form-control" id="bookGenre" th:field="*{genre}">
+        </div>
+        <div class="mb-3">
+            <label for="bookPrice" class="form-label">Название</label>
+            <input type="number" class="form-control" id="bookPrice" step="0.01" th:field="*{price}">
+        </div>
+        <div class="mb-3">
+            <label for="bookEditionYear" class="form-label">Название</label>
+            <input type="date" class="form-control" id="bookEditionYear" th:field="*{editionYear}">
+        </div>-->
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <input type="button" class="btn btn-danger" th:onclick="|window.location.href='/'|" value="Отменить">
+    </form>
+</div>
+</body>
+</html>

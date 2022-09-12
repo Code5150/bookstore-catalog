@@ -30,4 +30,12 @@ public class BookService {
     public void saveBook(BookDTO book) {
         bookRepository.saveAndFlush(new Book(book));
     }
+
+    public void saveAll(List<BookDTO> books) {
+        bookRepository.saveAllAndFlush(books.stream().map(Book::new).collect(Collectors.toList()));
+    }
+
+    public void deleteBook(UUID id) {
+        bookRepository.deleteById(id);
+    }
 }

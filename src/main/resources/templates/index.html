@@ -5,18 +5,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Книжный магазин</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 </head>
 <body>
-  <div class="container-lg">
-      <h1 th:text="'Каталог'"></h1>
-      <form th:method="POST" th:action="@{/newBook}">
-          <button type="submit" class="btn btn-primary">Создать</button>
-      </form>
-      <table class="table table-hover">
-          <thead>
+<div class="container-lg">
+    <h1 th:text="'Каталог'"></h1>
+    <div class="row">
+        <div class="col-1">
+            <form th:method="GET" th:action="@{/newBook}">
+                <button type="submit" class="btn btn-primary">Создать</button>
+            </form>
+        </div>
+        <div class="col-2">
+            <form th:method="GET" th:action="@{/uploadCsv}">
+                <button type="submit" class="btn btn-primary">Загрузить CSV</button>
+            </form>
+        </div>
+    </div>
+    <div class="row m-2">
+        <table class="table table-bordered border-dark rounded rounded-3 overflow-hidden">
+            <thead>
             <tr>
+                <th></th>
                 <th></th>
                 <th>Название</th>
                 <th>Описание</th>
@@ -25,16 +40,23 @@
                 <th>Год издания</th>
                 <th>Цена</th>
             </tr>
-          </thead>
-          <tbody>
+            </thead>
+            <tbody>
             <tr th:each="book: ${books}">
                 <td>
-                    <form th:method="POST" th:action="@{/editBook}">
-                        <input type="text" id="id" th:name="id" th:value="${book.id}" hidden/>
-                        <button type="submit" class="btn btn-outline-secondary">
-                            <img src="images/pencil-square.svg"/>
+                    <form th:method="GET" th:action="@{/editBook}">
+                        <input type="text" th:name="id" th:value="${book.id}" hidden/>
+                        <button type="submit" class="btn btn-primary btn-square-sm">
+                            <i class="bi bi-pencil-square"></i>
                         </button>
                     </form>
+                </td>
+                <td>
+                    <button type="submit" class="btn btn-danger btn-square-sm"
+                            data-bs-toggle="modal" data-bs-target="#deleteBookModal"
+                            th:attr="onclick=|document.getElementById('deleteBookId').value = '${book.id}'|">
+                        <i class="bi bi-trash"></i>
+                    </button>
                 </td>
                 <td th:text="${book.name}"></td>
                 <td th:text="${book.description}"></td>
@@ -43,8 +65,31 @@
                 <td th:text="${book.editionYear}"></td>
                 <td th:text="${book.price}"></td>
             </tr>
-          </tbody>
-      </table>
-  </div>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal fade" id="deleteBookModal" tabindex="-1" aria-labelledby="deleteBookLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteBookLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Вы действительно хотите удалить книгу?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                    <form th:method="POST" th:action="@{/deleteBook}">
+                        <input type="text" th:name="id" id="deleteBookId" hidden/>
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 </body>
 </html>
