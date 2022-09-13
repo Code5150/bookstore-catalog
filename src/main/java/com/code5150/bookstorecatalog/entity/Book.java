@@ -53,6 +53,11 @@ public class Book {
     @Setter
     private Double price;
 
+    @Version
+    @Getter
+    @Setter
+    private Integer version;
+
     public Book(BookDTO bookDTO) {
         this.id = bookDTO.getId();
         this.name = bookDTO.getName();
@@ -61,5 +66,6 @@ public class Book {
         this.price = bookDTO.getPrice();
         this.author = bookDTO.getAuthor();
         this.genre = bookDTO.getGenre();
+        this.version = bookDTO.getVersion();
     }
 }

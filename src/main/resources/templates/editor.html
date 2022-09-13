@@ -13,6 +13,7 @@
         <h1>Редактирование</h1>
         <form th:method="POST" th:action="@{/addBook}" th:object="${book}">
             <input type="text" id="id" th:name="id" th:field="*{id}" hidden/>
+            <input type="number" id="version" th:name="version" th:field="*{version}" hidden/>
             <div class="mb-3">
                 <label for="bookName" class="form-label">Название</label>
                 <input type="text" class="form-control" id="bookName" th:field="*{name}" required>

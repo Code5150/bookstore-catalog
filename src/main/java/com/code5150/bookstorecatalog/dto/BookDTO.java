@@ -30,6 +30,7 @@ public class BookDTO {
     private LocalDate editionYear;
     @CsvBindByName
     private Double price;
+    private Integer version;
 
     public BookDTO(Book book) {
         this.id = book.getId();
@@ -39,5 +40,6 @@ public class BookDTO {
         this.price = book.getPrice();
         this.author = book.getAuthor();
         this.genre = book.getGenre();
+        this.version = book.getVersion();
     }
 }
